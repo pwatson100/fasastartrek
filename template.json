@@ -1,0 +1,8 @@
+{
+	"Actor": {
+		"types": ["starfleet", "npc"]
+	},
+	"Item": {
+		"types": ["item", "skills", "spell"]
+	}
+}

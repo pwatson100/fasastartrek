@@ -1,0 +1,42 @@
+{
+	"FASA_STAR_TREK": {
+		"Ability": {
+			"Str": { "long": "Strength", "abbr": "STR" },
+			"End": { "long": "Endurance", "abbr": "END" },
+			"Dex": { "long": "Dexterity", "abbr": "DEX" },
+			"Int": { "long": "Intelligence", "abbr": "INT" },
+			"Luc": { "long": "Luck", "abbr": "LUC" },
+			"Cha": { "long": "Charisma", "abbr": "CHA" },
+			"Psi": { "long": "PSI", "abbr": "PSI" }
+		},
+		"SheetLabels": {
+			"Actor": "FASASTARTREK Actor Sheet",
+			"Item": "FASASTARTREK Item Sheet"
+		},
+		"Item": {
+			"Spell": {
+				"SpellLVL": "Level {level} Spells",
+				"AddLVL": "Add LVL {level}"
+			}
+		},
+		"Effect": {
+			"Source": "Source",
+			"Toggle": "Toggle Effect",
+			"Temporary": "Temporary Effects",
+			"Passive": "Passive Effects",
+			"Inactive": "Inactive Effects"
+		}
+	},
+
+	"TYPES": {
+		"Actor": {
+			"starfleet": "Star Fleet",
+			"npc": "NPC"
+		},
+		"Item": {
+			"item": "Item",
+			"skills": "Skills",
+			"spell": "Spell"
+		}
+	}
+}
