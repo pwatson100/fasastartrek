@@ -60,7 +60,6 @@ Hooks.once('init', function () {
 	CONFIG.Item.dataModels = {
 		item: models.FASASTARTREKItem,
 		skills: models.FASASTARTREKSkills,
-		spell: models.FASASTARTREKSpell,
 	};
 
 	// Active Effects are never copied to the Actor,

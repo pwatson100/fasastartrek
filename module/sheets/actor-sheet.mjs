@@ -65,6 +65,11 @@ export class FASASTARTREKActorSheet extends ActorSheet {
 			this.actor.allApplicableEffects()
 		);
 
+		context.race_list = CONFIG.FASA_STAR_TREK.race_list;
+		context.npc_races_list = CONFIG.FASA_STAR_TREK.npc_races_list;
+		context.rank_list = CONFIG.FASA_STAR_TREK.rank_list;
+		context.department_positions_list = CONFIG.FASA_STAR_TREK.department_positions_list;
+
 		logger.debug('Actor Sheet derived data:', context);
 
 		return context;
@@ -95,18 +100,6 @@ export class FASASTARTREKActorSheet extends ActorSheet {
 		// Initialize containers.
 		const gear = [];
 		const skills = [];
-		const spells = {
-			0: [],
-			1: [],
-			2: [],
-			3: [],
-			4: [],
-			5: [],
-			6: [],
-			7: [],
-			8: [],
-			9: [],
-		};
 
 		// Iterate through items, allocating to containers
 		for (let i of context.items) {
@@ -119,18 +112,11 @@ export class FASASTARTREKActorSheet extends ActorSheet {
 			else if (i.type === 'skills') {
 				skills.push(i);
 			}
-			// Append to spells.
-			else if (i.type === 'spell') {
-				if (i.system.spellLevel != undefined) {
-					spells[i.system.spellLevel].push(i);
-				}
-			}
 		}
 
 		// Assign and return
 		context.gear = gear;
 		context.skills = skills;
-		context.spells = spells;
 	}
 
 	/* -------------------------------------------- */
@@ -218,7 +204,8 @@ export class FASASTARTREKActorSheet extends ActorSheet {
 		event.preventDefault();
 		const element = event.currentTarget;
 		const dataset = element.dataset;
-
+		let d100die = '1d100';
+		let rollData = {};
 		// Handle item rolls.
 		if (dataset.rollType) {
 			if (dataset.rollType == 'item') {
@@ -230,13 +217,45 @@ export class FASASTARTREKActorSheet extends ActorSheet {
 
 		// Handle rolls that supply the formula directly.
 		if (dataset.roll) {
-			let label = dataset.label ? `[ability] ${dataset.label}` : '';
-			let roll = new Roll(dataset.roll, this.actor.getRollData());
-			roll.toMessage({
-				speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-				flavor: label,
+			let baseRoll = new Roll(d100die).evaluate({ async: false });
+			if (baseRoll.total <= dataset.value) {
+				rollData = {
+					hasSucceed: true,
+				};
+			} else {
+				rollData = {
+					hasSucceed: false,
+				};
+			}
+
+			const html = renderTemplate('systems/fasastartrek/templates/chat/roll.hbs', rollData);
+			let chatData = {
+				user: game.user.id,
+				speaker: ChatMessage.getSpeaker({
+					alias: this.actor.name,
+					actor: this.actor.id,
+				}),
+				// type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+				// roll: JSON.stringify(createRollData(baseRoll)),
+				roll: baseRoll,
 				rollMode: game.settings.get('core', 'rollMode'),
-			});
+				content: html,
+			};
+			if (['gmroll', 'blindroll'].includes(chatData.rollMode)) {
+				chatData.whisper = ChatMessage.getWhisperRecipients('GM');
+			} else if (chatData.rollMode === 'selfroll') {
+				chatData.whisper = [game.user];
+			}
+			ChatMessage.create(chatData);
+			return baseRoll;
+
+			// let label = dataset.label ? `[ability] ${dataset.label}` : '';
+			// let roll = new Roll(dataset.roll, this.actor.getRollData());
+			// roll.toMessage({
+			// 	speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+			// 	flavor: label,
+			// 	rollMode: game.settings.get('core', 'rollMode'),
+			// });
 			return roll;
 		}
 	}

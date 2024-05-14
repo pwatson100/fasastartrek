@@ -3,6 +3,6 @@
 		"types": ["starfleet", "npc"]
 	},
 	"Item": {
-		"types": ["item", "skills", "spell"]
+		"types": ["item", "skills"]
 	}
 }

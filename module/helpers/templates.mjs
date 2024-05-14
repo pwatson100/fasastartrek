@@ -8,7 +8,6 @@ export const preloadHandlebarsTemplates = async function () {
 		// Actor partials.
 		'systems/fasastartrek/templates/actor/parts/actor-skills.html',
 		'systems/fasastartrek/templates/actor/parts/actor-items.hbs',
-		'systems/fasastartrek/templates/actor/parts/actor-spells.hbs',
 		'systems/fasastartrek/templates/actor/parts/actor-effects.hbs',
 		// Item partials
 		'systems/fasastartrek/templates/item/parts/item-effects.hbs',

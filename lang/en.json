@@ -14,17 +14,13 @@
 			"Item": "FASASTARTREK Item Sheet"
 		},
 		"Item": {
-			"Spell": {
-				"SpellLVL": "Level {level} Spells",
-				"AddLVL": "Add LVL {level}"
+			"Effect": {
+				"Source": "Source",
+				"Toggle": "Toggle Effect",
+				"Temporary": "Temporary Effects",
+				"Passive": "Passive Effects",
+				"Inactive": "Inactive Effects"
 			}
-		},
-		"Effect": {
-			"Source": "Source",
-			"Toggle": "Toggle Effect",
-			"Temporary": "Temporary Effects",
-			"Passive": "Passive Effects",
-			"Inactive": "Inactive Effects"
 		}
 	},
 
@@ -35,8 +31,7 @@
 		},
 		"Item": {
 			"item": "Item",
-			"skills": "Skills",
-			"spell": "Spell"
+			"skills": "Skills"
 		}
 	}
 }

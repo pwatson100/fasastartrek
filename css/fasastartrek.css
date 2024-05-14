@@ -291,6 +291,9 @@
 .fasastartrek .statnum {
   width: 35px;
 }
+.fasastartrek .dicenum {
+  width: 60px;
+}
 .fasastartrek .resource-label {
   font-weight: bold;
   color: rgb(54, 42, 165);
